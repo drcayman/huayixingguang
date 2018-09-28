@@ -1,0 +1,26 @@
+{
+  "name": "drcayman/huayixingguang",
+  "description": "",
+  "keywords": [
+    "hauyixingguang",
+    "xma"
+  ],
+  "license": "GPL-3.0+",
+  "homepage": "http://blog.szwyll.com/",
+  "type": "library",
+  "authors": [
+    {
+      "name": "drcayman",
+      "email": "dr_cayman@163.com",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": ">=5.3.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "RoseKnife\\Jianhang\\": "src"
+    }
+  }
+}
