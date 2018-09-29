@@ -3,7 +3,7 @@
  * 订单查询
  */
 
-namespace Drcayman\Huayixingguang\PayObj;
+namespace Drcayman\Huayixingguang\OrderObj;
 
 
 class CheckOrder

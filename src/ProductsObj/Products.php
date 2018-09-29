@@ -3,7 +3,7 @@
  * 获取单个产品信息 包含产品价格
  */
 
-namespace RoseKnife\Jianhang\ProductsObj;
+namespace Drcayman\Huayixingguang\ProductsObj;
 
 
 class Products

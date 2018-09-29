@@ -6,7 +6,7 @@
  * Time: 下午5:03
  */
 
-namespace Drcayman\Huayixingguang\PayObj;
+namespace Drcayman\Huayixingguang\OrderObj;
 
 
 class RefundOrder

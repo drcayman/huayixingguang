@@ -2,7 +2,7 @@
 /**
  *  创建订单
  */
-namespace Drcayman\Huayixingguang\PayObj;
+namespace Drcayman\Huayixingguang\OrderObj;
 
 class CreateOrder
 {

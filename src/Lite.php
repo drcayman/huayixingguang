@@ -22,13 +22,21 @@ class Lite{
     public function exec($obj){
         $url= $this->config['url'].$obj->url;
         $data = (array)$obj;
+        foreach ($data as $k=>&$v){
+            if(is_array($v) ){
+                $v=json_encode($v);
+            }
+        }
         unset($data['url']); //移除请求地址
         unset($data['type']); //移除请求方式
+        $data['client_id']=$this->config['client_id'];
+        date_default_timezone_set('Asia/Shanghai');
+        $data['timestamp'] =date('Y-m-d H:i:s');
         return $this->handle($url,$data,$obj->type);
     }
 
 
-    /** 获取产品信息
+    /** 获取单个产品信息
      * @param $obj
      * @return array|mixed
      */
@@ -38,6 +46,9 @@ class Lite{
         $data =(array)$obj;
         unset($data['url']);
         unset($data['type']);
+        $data['client_id']=$this->config['client_id'];
+        date_default_timezone_set('Asia/Shanghai');
+        $data['timestamp'] =date('Y-m-d H:i:s');
         return $this->handle($url,$data,$obj->type);
 
     }
@@ -53,7 +64,10 @@ class Lite{
         $str ='';
         foreach ($data as $k=>$v){
 
-            $str = $str.$k.$v;//拼接拼接字符串
+         $str = $str.$k.$v;//拼接拼接字符串
+
+
+
         }
         return md5($this->config['client_secret'].$str.$this->config['client_secret']);
     }
@@ -70,9 +84,7 @@ class Lite{
 
         try{
             $data['signature'] = $this->Sign($data);
-            $data['client_id']=$this->config['client_id'];
-            $data['timestamp'] =date('Y-m-d H:i:s');
-            return json_decode($this->cur($url,$data,$type));
+            return json_decode($this->cur($url,$data,$type),true);
         }catch (Exception $e){
             return ['code'=>'403'];
         }
@@ -86,26 +98,47 @@ class Lite{
      */
     public function cur($url, $data,$type, $timeout = 300)
     {
-        $headers = array(
-            "Cache-Control: no-cache",
-            "Content-Type: application/x-www-form-urlencoded"
-        );
-        $curl = curl_init();
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => $url,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => $timeout,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => $type,
-            CURLOPT_POSTFIELDS => $data,
-            CURLOPT_HTTPHEADER => $headers,
-            CURLOPT_SSL_VERIFYPEER=>false
 
-        ));
+
+        $curl = curl_init();
+        if($type=='GET'){
+            $headers = array(
+                "Cache-Control: no-cache",
+                "Content-Type: application/x-www-form-urlencoded"
+            );
+            $str='?';
+            foreach ($data as $k=>$v){ //拼接get链接
+                if(!is_array($v)){
+                    $str =$str.$k.'='.urlencode($v).'&';
+                }
+            }
+            $str = rtrim($str, "&");
+
+            $url = $url.$str;
+            curl_setopt_array($curl,array(
+                CURLOPT_URL=>$url,
+                CURLOPT_HTTPHEADER => $headers,
+                CURLOPT_RETURNTRANSFER=>1
+            ));
+        }else{
+            $headers = array(
+
+                "Cache-Control: no-cache",
+            );
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => $url,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => "",
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => $timeout,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => $type,
+                CURLOPT_POSTFIELDS => $data,
+                CURLOPT_HTTPHEADER => $headers,
+                CURLOPT_SSL_VERIFYPEER=>false
+            ));
+        }
         $response = curl_exec($curl);
-        $err = curl_error($curl);
         curl_close($curl);
         return $response;
     }
