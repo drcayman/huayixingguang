@@ -5,20 +5,20 @@
 获取 单个产品调用
 
 
-(```)
+```
 $Lite->getProducts($obj)
-(```)
+```
 
 其余调用
 
-(```)
+```
 $Lite->exec($obj);
-(```)
+```
 
 
 获取产品列表
 
-(```) 
+```
 include_once "src/Lite.php";
 include_once "src/ProductsObj/ProductsList.php";
 $config = ['client_id'=>'','client_secret'=>'','url'=>''];
@@ -26,7 +26,7 @@ $obj = new \Drcayman\Huayixingguang\ProductsObj\ProductsList();
 $obj->page = '1';
 $lite = new \Drcayman\Huayixingguang\Lite($config);
 var_dump($lite->exec($obj));
-(```)
+```
 
 
 获取单个产品
