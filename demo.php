@@ -10,7 +10,7 @@
 
 include_once "src/Lite.php";
 include_once "src/OrderObj/RefundOrder.php";
-$config = ['client_id'=>'0efe0228','client_secret'=>'eac9ca975049','url'=>'http://testapi.123menpiao.com'];
+$config = ['client_id'=>'','client_secret'=>'','url'=>''];
 
 
 $obj = new \Drcayman\Huayixingguang\OrderObj\RefundOrder();
