@@ -44,7 +44,7 @@ $obj-> idnumber ='320721199107024623';
 $obj-> arrival_date ='2018-09-30';
 $obj-> name='张三';
 $obj-> tel='13013838820';
-$obj-> line_items = [['variant_number'=>'20178974630521','quantity'=>'1']];
+$obj-> line_items = [['variant_number'=>'20178974630521','quantity'=>1]];
 $lite = new \Drcayman\Huayixingguang\Lite($config);
 
 var_dump($lite->exec($obj));
@@ -73,7 +73,7 @@ $config = ['client_id'=>'','client_secret'=>'','url'=>''];
 $obj = new \Drcayman\Huayixingguang\OrderObj\RefundOrder();
 
 $obj-> order_number  = 'A8731221796';
-$obj-> line_items = [['variant_number'=>'20178974630521','quantity'=>'1']];
+$obj-> line_items = [['variant_number'=>'20178974630521','quantity'=>1]];
 $lite = new \Drcayman\Huayixingguang\Lite($config);
 var_dump($lite->exec($obj));
 
