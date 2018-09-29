@@ -20,7 +20,7 @@
   },
   "autoload": {
     "psr-4": {
-      "RoseKnife\\Jianhang\\": "src"
+      "Drcayman\\Huayixingguang\\": "src"
     }
   }
 }
